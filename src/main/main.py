@@ -10,6 +10,6 @@ import util
 
 
 try:
-    l/0
+    0/0
 except Exception as e:
     util.RaiseError(e)
