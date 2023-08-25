@@ -7,3 +7,9 @@ sys.path.append(parent_dir + "/lib")
 
 """Import util module"""
 import util
+
+
+try:
+    l/0
+except Exception as e:
+    util.RaiseError(e)
