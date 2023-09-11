@@ -47,32 +47,29 @@ if __name__ == '__main__':
 
         print(lineTopLength, lineBottomLength, lineLeftLength, lineRightLength)
         if topLeftAngle == 90 and topRightAngle == 90 and bottomRightAngle == 90 and bottomLeftAngle == 90:
-            if lineTopLength == lineBottomLength == lineLeftLength == lineRightLength:
+            proofs.append("All angles are 90 degrees")
+            if lineTopLength == lineBottomLength and lineLeftLength == lineRightLength:
+                proofs.append("All sides are equal")
                 shapeData.set_text("Square")
-                proofs.append("All angles are 90 degrees")
-                proofs.append("All sides are the same length")
-
-            else:
+            elif lineTopLength == lineBottomLength or lineLeftLength == lineRightLength:
+                proofs.append("Top and bottom sides are equal")
                 shapeData.set_text("Rectangle")
-                proofs.append("All angles are 90 degrees")
-                proofs.append("Not all sides are the same length")
+            else:
+                shapeData.set_text("Parallelogram")
+        elif topLeftAngle == 90 and bottomRightAngle == 90:
+            if topRightAngle == bottomLeftAngle:
+                proofs.append("Opposite angles are equal")
+                if lineTopLength == lineBottomLength and lineLeftLength == lineRightLength:
+                    proofs.append("All sides are equal")
+                    shapeData.set_text("Rhombus")
+                else:
+                    shapeData.set_text("Kite")
+            else:
+                shapeData.set_text("Trapezium")
+
 
 
         # do the same without util.angle
-
-
-
-        # identify shape out of Trapezium Kite Parallelogram Rectangle Rhombus Square from points including proofs
-
-        # check for parallel sides
-        if lineLeft[0][0] == lineLeft[1][0] and lineRight[0][0] == lineRight[1][0]:
-            proofs.append("Left and right sides are parallel")
-            if lineTop[0][0] == lineTop[1][0] and lineBottom[0][0] == lineBottom[1][0]:
-                proofs.append("Top and bottom sides are parallel")
-                shapeData.set_text("Square")
-
-        elif lineTop[0][0] == lineTop[1][0] and lineBottom[0][0] == lineBottom[1][0]:
-            proofs.append("Top and bottom sides are parallel")
 
 
 
