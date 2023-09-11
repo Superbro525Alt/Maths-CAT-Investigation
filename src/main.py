@@ -35,13 +35,27 @@ if __name__ == '__main__':
         lineRight = [shapePoints[3], shapePoints[2]]
         lineBottom = [shapePoints[1], shapePoints[2]]
 
-
-
-        # get each angle without util
         topLeftAngle = angle_between_lines(np.array([int(shapePoints[0][0]), int(shapePoints[0][1])]), np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]), np.array([int(shapePoints[2][0]), int(shapePoints[2][1])]), np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]))
         topRightAngle = angle_between_lines(np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]), np.array([int(shapePoints[2][0]), int(shapePoints[2][1])]), np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]), np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]))
         bottomRightAngle = angle_between_lines(np.array([int(shapePoints[2][0]), int(shapePoints[2][1])]), np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]), np.array([int(shapePoints[0][0]), int(shapePoints[0][1])]), np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]))
         bottomLeftAngle = angle_between_lines(np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]), np.array([int(shapePoints[0][0]), int(shapePoints[0][1])]), np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]), np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]))
+
+        lineTopLength = abs(int(shapePoints[0][0]) - int(shapePoints[1][0]))
+        lineBottomLength = abs(int(shapePoints[2][0]) - int(shapePoints[3][0]))
+        lineLeftLength = abs(int(shapePoints[0][1]) - int(shapePoints[3][1]))
+        lineRightLength = abs(int(shapePoints[1][1]) - int(shapePoints[2][1]))
+
+        print(lineTopLength, lineBottomLength, lineLeftLength, lineRightLength)
+        if topLeftAngle == 90 and topRightAngle == 90 and bottomRightAngle == 90 and bottomLeftAngle == 90:
+            if lineTopLength == lineBottomLength == lineLeftLength == lineRightLength:
+                shapeData.set_text("Square")
+                proofs.append("All angles are 90 degrees")
+                proofs.append("All sides are the same length")
+
+            else:
+                shapeData.set_text("Rectangle")
+                proofs.append("All angles are 90 degrees")
+                proofs.append("Not all sides are the same length")
 
 
         # do the same without util.angle
