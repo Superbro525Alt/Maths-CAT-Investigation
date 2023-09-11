@@ -12,7 +12,11 @@ if __name__ == '__main__':
         pass
 
     def calculate():
-        print("Calculating")
+        proofs = []
+
+        shapePoints = [
+            vertex1.get_value()
+        ]
 
     props = util.WindowProperties(size=util.resolution(800, 500), dynamic_scaling=True, dev_resolution=util.resolution(1920, 1080))
 
@@ -39,16 +43,26 @@ if __name__ == '__main__':
 
     window.add_widget(vertex4, util.PlaceData(0.2, 0.5, util.CenterAnchor().get_anchor()))
 
-    shape = tailwind.widgets.Label(window, "Quadrilateral", util.Style.empty(), {}, {})
+    shapeTitle = tailwind.widgets.Label(window, "Quadrilateral", util.Style.empty(), {}, {})
 
-    window.add_widget(shape, util.PlaceData(0.5, 0.1, util.CenterAnchor().get_anchor()))
+    window.add_widget(shapeTitle, util.PlaceData(0.5, 0.1, util.CenterAnchor().get_anchor()))
 
-    proof = tailwind.widgets.Label(window, "Proof", util.Style.empty(), {}, {})
+    shapeData = tailwind.widgets.Label(window, "None", util.Style.empty(), {}, {})
 
-    window.add_widget(proof, util.PlaceData(0.8, 0.1, util.CenterAnchor().get_anchor()))
+    window.add_widget(shapeData, util.PlaceData(0.5, 0.2, util.CenterAnchor().get_anchor()))
+
+    proofTitle = tailwind.widgets.Label(window, "Proof", util.Style.empty(), {}, {})
+
+    window.add_widget(proofTitle, util.PlaceData(0.8, 0.1, util.CenterAnchor().get_anchor()))
+
+    proofData = tailwind.widgets.Label(window, "None", util.Style.empty(), {}, {})
+
+    window.add_widget(proofData, util.PlaceData(0.8, 0.2, util.CenterAnchor().get_anchor()))
 
     calculate = tailwind.widgets.Button(window, calculate, util.Style.empty(), {}, {}, text="Calculate")
 
     window.add_widget(calculate, util.PlaceData(0.5, 0.9, util.CenterAnchor().get_anchor()))
+
+
 
     window.main_loop()
