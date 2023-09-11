@@ -1,5 +1,8 @@
+import math
 import sys
 import os
+
+import numpy as np
 import pygame
 
 import tailwind.window
@@ -8,6 +11,12 @@ import tailwind.widgets
 
 
 if __name__ == '__main__':
+
+    def angle_between_lines(line1_start, line1_end, line2_start, line2_end):
+        return np.degrees(np.arccos(np.dot((line1_end - line1_start), (line2_end - line2_start)) / (
+                    np.linalg.norm(line1_end - line1_start) * np.linalg.norm(line2_end - line2_start))))
+
+
     def onTick(_window: tailwind.window.Window, *args, **kwargs):
         pass
 
@@ -15,8 +24,43 @@ if __name__ == '__main__':
         proofs = []
 
         shapePoints = [
-            vertex1.get_value()
+            vertex1.get_value().strip().split(","),
+            vertex2.get_value().strip().split(","),
+            vertex3.get_value().strip().split(","),
+            vertex4.get_value().strip().split(",")
         ]
+
+        lineLeft = [shapePoints[0], shapePoints[1]]
+        lineTop = [shapePoints[1], shapePoints[3]]
+        lineRight = [shapePoints[3], shapePoints[2]]
+        lineBottom = [shapePoints[1], shapePoints[2]]
+
+
+
+        # get each angle without util
+        topLeftAngle = angle_between_lines(np.array([int(shapePoints[0][0]), int(shapePoints[0][1])]), np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]), np.array([int(shapePoints[2][0]), int(shapePoints[2][1])]), np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]))
+        topRightAngle = angle_between_lines(np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]), np.array([int(shapePoints[2][0]), int(shapePoints[2][1])]), np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]), np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]))
+        bottomRightAngle = angle_between_lines(np.array([int(shapePoints[2][0]), int(shapePoints[2][1])]), np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]), np.array([int(shapePoints[0][0]), int(shapePoints[0][1])]), np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]))
+        bottomLeftAngle = angle_between_lines(np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]), np.array([int(shapePoints[0][0]), int(shapePoints[0][1])]), np.array([int(shapePoints[3][0]), int(shapePoints[3][1])]), np.array([int(shapePoints[1][0]), int(shapePoints[1][1])]))
+
+
+        # do the same without util.angle
+
+
+
+        # identify shape out of Trapezium Kite Parallelogram Rectangle Rhombus Square from points including proofs
+
+        # check for parallel sides
+        if lineLeft[0][0] == lineLeft[1][0] and lineRight[0][0] == lineRight[1][0]:
+            proofs.append("Left and right sides are parallel")
+            if lineTop[0][0] == lineTop[1][0] and lineBottom[0][0] == lineBottom[1][0]:
+                proofs.append("Top and bottom sides are parallel")
+                shapeData.set_text("Square")
+
+        elif lineTop[0][0] == lineTop[1][0] and lineBottom[0][0] == lineBottom[1][0]:
+            proofs.append("Top and bottom sides are parallel")
+
+
 
     props = util.WindowProperties(size=util.resolution(800, 500), dynamic_scaling=True, dev_resolution=util.resolution(1920, 1080))
 
